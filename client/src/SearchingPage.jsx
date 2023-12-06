@@ -1,7 +1,20 @@
 import SearchingBlock from "./SearchingBlock"
 import ListDisplay from "./ListDisplay"
 import SearchResult from "./SearchResult"
-export default function SearchingPage({ lst, movies }) {
+import { useLocation } from "react-router-dom"
+export default function SearchingPage() {
+    const movie1 = { title: "Zinjia", category: "Advanture", img: "http://vwer.com" }
+    const movie2 = { title: "Hunger Game", category: "Advanture", img: "http://hunger.com" }
+
+    let movies = [movie1, movie2]
+    const location = useLocation()
+    const result = location.state
+    console.log(result)
+    console.log(location.haha)
+
+    // if (result && result.length != 0) {
+    //     movies = result
+    // }
     return (
         <>
             <SearchingBlock />

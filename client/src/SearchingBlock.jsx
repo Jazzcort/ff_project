@@ -1,15 +1,15 @@
 import './SearchingBlock.css'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 
 
 
 export default function SearchingBlock() {
-    const navigateToList = useNavigate()
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [actor, setActor] = useState("")
+    const [result, setResult] = useState(null)
     const updateTitle = (evt) => {
         setTitle(evt.target.value)
     }
@@ -24,10 +24,8 @@ export default function SearchingBlock() {
         evt.preventDefault()
         const objToSent = {title, category, actor}
         console.log(objToSent)
-        axios.post('http://localhost:7777/artists', {
-            params: {title: title, category: category, actor: actor}
-        }).then((data) => {
-            console.log(data)
+        axios.post('http://localhost:7777/artists', {title, category, actor}).then((data) => {
+            setResult(data.data)
         })
 
     }
@@ -55,6 +53,8 @@ export default function SearchingBlock() {
                     <div className='mb-3'>
                         <button onSubmit={handleFromSubmit}>Search</button>
                     </div>
+
+                    {result ? <Navigate to='/search/a' replace={true} state={result} haha={result}/> : null}
 
                 </form>
             </div>
