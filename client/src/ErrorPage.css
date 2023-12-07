@@ -1,0 +1,10 @@
+.errorPage {
+    height: 100vh;
+}
+
+.errorPage h1 {
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+}

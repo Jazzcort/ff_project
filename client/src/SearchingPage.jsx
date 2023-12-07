@@ -2,6 +2,7 @@ import SearchingBlock from "./SearchingBlock"
 import ListDisplay from "./ListDisplay"
 import SearchResult from "./SearchResult"
 import { useLocation } from "react-router-dom"
+import './SearchingPage.css'
 export default function SearchingPage() {
     const movie1 = { title: "Zinjia", category: "Advanture", img: "http://vwer.com" }
     const movie2 = { title: "Hunger Game", category: "Advanture", img: "http://hunger.com" }
@@ -12,11 +13,11 @@ export default function SearchingPage() {
     console.log(result)
     console.log(location.haha)
 
-    // if (result && result.length != 0) {
-    //     movies = result
-    // }
+    if (result && result.length != 0) {
+        movies = result
+    }
     return (
-        <>
+        <div className="searchingPage">
             <SearchingBlock />
             <div className='row'>
                 <div className='col-3'>
@@ -28,6 +29,6 @@ export default function SearchingPage() {
                 </div>
             </div>
 
-        </>
+        </div>
     )
 }
