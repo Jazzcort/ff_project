@@ -13,7 +13,6 @@ export default function NavBar() {
                     <span className="navbar-toggle-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <a className="nav-link" href="#">Sign in</a>

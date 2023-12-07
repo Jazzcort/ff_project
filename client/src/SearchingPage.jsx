@@ -2,20 +2,22 @@ import SearchingBlock from "./SearchingBlock"
 import ListDisplay from "./ListDisplay"
 import SearchResult from "./SearchResult"
 import { useLocation, useParams } from "react-router-dom"
+import { useState } from "react"
 import './SearchingPage.css'
+import axios from "axios"
 export default function SearchingPage({user, lst}) {
-    const movie1 = { title: "Zinjia", category: "Advanture", img: "http://vwer.com" }
-    const movie2 = { title: "Hunger Game", category: "Advanture", img: "http://hunger.com" }
+    const [movies, setMovies] = useState([])
 
-    let movies = [movie1, movie2]
+    if (movies && movies.length === 0) {
+        axios.get('http://localhost:7777/getAllMovies').then((res) => {
+            setMovies(res.data)
+        })
+    }
+
     const location = useLocation()
     const result = location.state
-    console.log(result)
-    console.log(useParams())
 
-    if (result && result.length !== 0) {
-        movies = result
-    }
+
     return (
         <div className="searchingPage">
             <SearchingBlock />
@@ -25,7 +27,7 @@ export default function SearchingPage({user, lst}) {
                 </div>
 
                 <div className='col-9'>
-                    <SearchResult movies={movies} />
+                    <SearchResult movies={result && result.length !== 0 ? result: movies} />
                 </div>
             </div>
 

@@ -14,7 +14,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: process.env.MYSQLPASSWORD,
-  database: 'musicleec',
+  database: 'movie_mania',
   waitForConnections: true,
   connectionLimit: 10,
   maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
@@ -39,8 +39,35 @@ app.post('/artists', (req, res) => {
   const aid = ""
   pool.query(`SELECT * FROM artists ${aid != "" ? `WHERE aid = ${aid}` : ""}`, function (error, results, fields) {
     if (error) throw error;
-  res.send(results);
+    res.send(results);
   });
+})
+
+app.post('/searchMovies', (req, res) => {
+  const { title, year, actor, director, genre } = req.body
+  pool.execute('Call SearchMovies(?,?,?,?)', [title, year, actor, director], function (error, results, fields) {
+    if (error) throw error;
+    console.log(results)
+    res.send(results[0])
+  })
+})
+
+app.get('/getAllMovies', (req, res) => {
+  pool.query(`SELECT * FROM movie`, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results)
+    res.send(results);
+  })
+})
+
+app.post('/addMovieToList', (req, res) => {
+  const { mid, listId } = req.body
+  console.log(req.body)
+  pool.execute('CALL add_movie_to_list(?,?)', [listId, mid], function(error, results, fields) {
+    if (error) throw error;
+    res.send(true)
+    console.log(results)
+  })
 })
 
 // connection.end();
