@@ -3,7 +3,7 @@ import ListDisplay from "./ListDisplay"
 import SearchResult from "./SearchResult"
 import { useLocation } from "react-router-dom"
 import './SearchingPage.css'
-export default function SearchingPage() {
+export default function SearchingPage({user, lst}) {
     const movie1 = { title: "Zinjia", category: "Advanture", img: "http://vwer.com" }
     const movie2 = { title: "Hunger Game", category: "Advanture", img: "http://hunger.com" }
 

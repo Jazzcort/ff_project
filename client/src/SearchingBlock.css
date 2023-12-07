@@ -1,5 +1,7 @@
 .searchingBlock label {
     color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
     margin-left: 5px;
     margin-right: 5px;
     text-align: start;

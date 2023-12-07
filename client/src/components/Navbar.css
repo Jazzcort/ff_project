@@ -1,3 +1,11 @@
 .navbar-brand{
     color: white;
 }
+
+.navbar-nav a{
+    color:white;
+}
+
+.navbar {
+    background-color: gray;
+}

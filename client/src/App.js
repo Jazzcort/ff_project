@@ -20,11 +20,8 @@ function App() {
 
   return (
 
-    <div className="App">
-      <header className="App-header">
-
-        <button onClick={apiCall}>Make api call</button>
-      </header>
+    <div className="App row">
+      <h1 className='col-sm-6 offset-sm-3'>Welcome to MovieList</h1>
       
     </div>
 
