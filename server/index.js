@@ -35,7 +35,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/artists', (req, res) => {
-  console.log(req.body)
   const aid = ""
   pool.query(`SELECT * FROM artists ${aid != "" ? `WHERE aid = ${aid}` : ""}`, function (error, results, fields) {
     if (error) throw error;
@@ -47,7 +46,7 @@ app.post('/searchMovies', (req, res) => {
   const { title, year, actor, director, genre } = req.body
   pool.execute('Call SearchMovies(?,?,?,?)', [title, year, actor, director], function (error, results, fields) {
     if (error) throw error;
-    console.log(results)
+    
     res.send(results[0])
   })
 })
@@ -55,19 +54,30 @@ app.post('/searchMovies', (req, res) => {
 app.get('/getAllMovies', (req, res) => {
   pool.query(`SELECT * FROM movie`, function (error, results, fields) {
     if (error) throw error;
-    console.log(results)
+    
     res.send(results);
   })
 })
 
 app.post('/addMovieToList', (req, res) => {
   const { mid, listId } = req.body
-  console.log(req.body)
-  pool.execute('CALL add_movie_to_list(?,?)', [listId, mid], function(error, results, fields) {
+  pool.execute('CALL add_movie_to_list(?,?)', [listId, mid], function (error, results, fields) {
     if (error) throw error;
     res.send(true)
-    console.log(results)
   })
+})
+
+app.post('/getDefaultList', (req, res) => {
+  const { id } = req.body
+  pool.query(`SELECT * FROM user_list WHERE user_id = ? LIMIT 1`, [id], function (error, results, fields) {
+    if (error) throw error;
+    try {
+      res.send(results[0].list_id)
+    } catch (e) {
+      console.log(e)
+    }
+  })
+
 })
 
 // connection.end();
