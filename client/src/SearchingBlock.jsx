@@ -54,7 +54,7 @@ export default function SearchingBlock() {
                         <button onSubmit={handleFromSubmit}>Search</button>
                     </div>
 
-                    {result ? <Navigate to='/search/a' replace={false} state={result}/> : null}
+                    {result ? <Navigate to='/search/alookfor=12' replace={false} state={result}/> : null}
 
                 </form>
             </div>

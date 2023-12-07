@@ -27,7 +27,7 @@ const pool = mysql.createPool({
 // connection.connect();
 
 
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 app.get('/', (req, res) => {
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 app.post('/artists', (req, res) => {
   console.log(req.body)
   const aid = ""
-  pool.query(`SELECT * FROM artists ${aid != "" ? `WHERE aid = ${aid}`: "" }`, function (error, results, fields) {
+  pool.query(`SELECT * FROM artists ${aid != "" ? `WHERE aid = ${aid}` : ""}`, function (error, results, fields) {
     if (error) throw error;
   res.send(results);
   });

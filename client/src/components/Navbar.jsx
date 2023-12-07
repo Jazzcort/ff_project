@@ -1,6 +1,7 @@
-import { useLocation } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 import './Navbar.css'
 export default function NavBar() {
+    console.log(useParams())
     // const location = useLocation()
     // const result = location.state
     // console.log(result)

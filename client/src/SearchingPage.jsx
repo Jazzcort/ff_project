@@ -1,7 +1,7 @@
 import SearchingBlock from "./SearchingBlock"
 import ListDisplay from "./ListDisplay"
 import SearchResult from "./SearchResult"
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import './SearchingPage.css'
 export default function SearchingPage({user, lst}) {
     const movie1 = { title: "Zinjia", category: "Advanture", img: "http://vwer.com" }
@@ -11,9 +11,9 @@ export default function SearchingPage({user, lst}) {
     const location = useLocation()
     const result = location.state
     console.log(result)
-    console.log(location.haha)
+    console.log(useParams())
 
-    if (result && result.length != 0) {
+    if (result && result.length !== 0) {
         movies = result
     }
     return (
