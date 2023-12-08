@@ -1,15 +1,37 @@
-.App{
-  height: 100vh;
-  /* display: flex;
+.App {
+  height: 100vh; /* display: flex;
   align-content: center;
   justify-content: center; */
 }
 
-.App h1{
+.App h1 {
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40vh;
   text-align: center;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-icon {
+  font-size: 10rem;
+  color: #fff;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 10s infinite linear;
 }
