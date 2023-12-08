@@ -8,6 +8,8 @@ export default function Movie({ mid, title, release_year, rating, setMovies, set
     const isDelete = location.pathname.split('/')[1] === "movie" ? true : false
     const [genre, setGenre] = useState(null)
 
+    console.log(release_year)
+
     if (!genre) {
         axios.post('http://localhost:7777/getMovieGenre', { mid }).then(res => {
             setGenre(res.data.genre_list)

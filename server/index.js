@@ -193,7 +193,7 @@ app.post('/createNewList', (req, res) => {
 
 app.post('/getMoviesInList', (req, res) => {
   const { listId } = req.body
-  pool.query('SELECT m.movie_id, m.movie_title, ul.list_name FROM movie m JOIN user_list_to_movie ultm ON ultm.movie_id = m.movie_id JOIN user_list ul ON ul.list_id = ultm.list_id WHERE ultm.list_id = ?', [listId], function (error, results, fields) {
+  pool.query('SELECT m.imdb_rating, m.release_year, m.movie_id, m.movie_title, ul.list_name FROM movie m JOIN user_list_to_movie ultm ON ultm.movie_id = m.movie_id JOIN user_list ul ON ul.list_id = ultm.list_id WHERE ultm.list_id = ?', [listId], function (error, results, fields) {
     if (error) throw error;
 
     res.send(results)

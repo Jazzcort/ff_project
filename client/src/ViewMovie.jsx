@@ -13,6 +13,7 @@ export default function ViewMovie() {
 
     if (!movies) {
         axios.post('http://localhost:7777/getMoviesInList', { listId }).then(res => {
+            console.log(res.data)
             setMovies(res.data)
         }).then(res => {
             axios.post('http://localhost:7777/getListName', { listId }).then(res => {
