@@ -15,14 +15,17 @@ import ErrorPage from "./ErrorPage";
 import ViewList from "./ViewList";
 import Login from "./Login";
 import Signup from "./Signup";
+import ViewMovie from "./ViewMovie"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
+      <Route index element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/home/:id" element={<App />} />
       <Route path="/search/:id/:listId" element={<SearchingPage />} />
+      <Route path="/movie/:id/:listid" element={<ViewMovie />}/>
       <Route path="/mylist/:id" element={<ViewList />} />
       <Route path="*" element={<ErrorPage />} />
 

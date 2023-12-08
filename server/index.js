@@ -90,9 +90,9 @@ app.post('/getDefaultList', (req, res) => {
       res.send(results[0].list_id)
     } catch (e) {
       console.log(e)
-
     }
-  );
+
+  });
 });
 
 app.post("/signup", (req, res) => {
@@ -204,12 +204,26 @@ app.post('/getUserAllLists', (req, res) => {
 
 app.post('/getListSize', (req, res) => {
   const { listId } = req.body
-  pool.execute('CALL get_size_from_list(?)', [listId], function(error, results, fields) {
+  pool.execute('CALL get_size_from_list(?)', [listId], function (error, results, fields) {
     if (error) throw error
     try {
       res.send(`${results[0][0].sizeOfList}`)
     } catch (e) {
       console.log(e)
+    }
+
+  })
+})
+
+app.post('/deleteList', (req, res) => {
+  const { id, listId } = req.body
+  pool.execute('CALL delete_list_safely(?, ?)', [id, listId], function(error, results, fields) {
+    if (error) throw error
+    console.log(results.length)
+    if (!results.length) {
+      res.send(true)
+    } else {
+      res.send(false)
     }
     
   })

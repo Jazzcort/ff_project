@@ -6,7 +6,6 @@ export default function ListDisplay({ lst }) {
 
     function handleOnClick(evt) {
         evt.preventDefault()
-        console.log('clicked')
         navigate(`/movie/${id}/${listId}`)
         // return redirect(`/movie/${id}/${listId}`)
     }

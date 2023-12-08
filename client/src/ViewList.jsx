@@ -10,7 +10,6 @@ export default function ViewList() {
 
     if (!lstArray) {
         axios.post('http://localhost:7777/getUserAllLists', { id }).then((res) => {
-            console.log(res.data)
             setLstArray(res.data)
         })
     }
@@ -19,7 +18,7 @@ export default function ViewList() {
     return (
         <div className="row">
 
-            {lstArray !== null ? lstArray.map(l =>  <List lstName={l.list_name} list_id={l.list_id} /> ) : null}
+            {lstArray !== null ? lstArray.map(l =>  <List lstName={l.list_name} list_id={l.list_id} setLstArray={setLstArray} /> ) : null}
            
         </div>
     )

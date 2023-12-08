@@ -1,0 +1,5 @@
+div.card-body a {
+    display: block;
+    width: fit-content;
+    margin-top: 5px;
+}
