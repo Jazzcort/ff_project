@@ -1,3 +1,29 @@
 .searchingPage{
     height: 100vh;
 }
+
+.menuSection {
+    display:flexbox;
+}
+
+.menuSection div{
+    display: flex;
+    width: fit-content;
+}
+
+.dropdown {
+    width: fit-content;
+}
+
+.menuSection {
+    display: flexbox;
+}
+
+.newListInput form{
+    display: flex;
+}
+
+.newListInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

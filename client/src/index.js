@@ -8,6 +8,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+
 import SearchingPage from "./SearchingPage";
 import RootLayout from "./layout/RootLayout";
 import ErrorPage from "./ErrorPage";
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="/search/:id/:listId" element={<SearchingPage />} />
       <Route path="/mylist/:id" element={<ViewList />} />
       <Route path="*" element={<ErrorPage />} />
+
     </Route>
   )
 );
