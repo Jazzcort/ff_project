@@ -68,7 +68,11 @@ app.post("/addMovieToList", (req, res) => {
     [listId, mid],
     function (error, results, fields) {
       if (error) throw error;
-      res.send(true);
+      if (!results.length) {
+        res.send(true)
+      } else {
+        res.send(false)
+      }
     }
   );
 });
@@ -178,7 +182,12 @@ app.post('/createNewList', (req, res) => {
   const { id, newList } = req.body
   pool.execute(`CALL create_new_list(?,?)`, [id, newList], function (error, results, fields) {
     if (error) throw error;
-    res.send(true)
+    if (!results.length) {
+      res.send(true)
+    } else {
+      res.send(false)
+    }
+    // res.send(true)
   })
 })
 
@@ -217,15 +226,48 @@ app.post('/getListSize', (req, res) => {
 
 app.post('/deleteList', (req, res) => {
   const { id, listId } = req.body
-  pool.execute('CALL delete_list_safely(?, ?)', [id, listId], function(error, results, fields) {
+  pool.execute('CALL delete_list_safely(?, ?)', [id, listId], function (error, results, fields) {
     if (error) throw error
-    console.log(results.length)
     if (!results.length) {
       res.send(true)
     } else {
       res.send(false)
     }
-    
+
+  })
+})
+
+app.post('/getListName', (req, res) => {
+  const { listId } = req.body
+  pool.query('SELECT list_name from user_list WHERE list_id = ?', [listId], function (error, results, fields) {
+    if (error) throw error;
+    console.log(results)
+    res.send(results[0])
+  })
+})
+
+app.post('/editListName', (req, res) => {
+  const { listId, editText } = req.body
+  pool.execute('CALL update_list_name(?,?)', [listId, editText], function (error, results, field) {
+    if (error) throw error
+    // console.log(results.affectedRows)
+    res.send(results.affectedRows === 1 ? true : false)
+  })
+})
+
+app.post('/getUserName', (req, res) => {
+  const { id } = req.body
+  pool.query('SELECT username FROM user WHERE user_id = ?', [id], function (error, results, fields) {
+    if (error) throw error;
+    res.send(results[0])
+  })
+})
+
+app.post('/getMovieGenre', (req, res) => {
+  const { mid } = req.body
+  pool.execute('CALL get_genres_from_movie_id(?)', [mid], function(error, results, fields) {
+    if (error) throw error;
+    res.send(results[0][0])
   })
 })
 

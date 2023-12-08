@@ -35,9 +35,9 @@ export default function List({ lstName, list_id, setLstArray }) {
             <div className="card-body">
                 <h5 className="card-title">{lstName}</h5>
                 <p className="card-text">{num} {parseInt(num) > 1 ? "movies" : "movie"}</p>
-                <a className="btn btn-primary" href={`/movie/${id}/${list_id}`}>View</a>
-                <a className="btn btn-success" href={`/search/${id}/${list_id}`}> + </a>
-                <a onClick={deleteList} className="btn btn-danger" href=""> - </a>
+                <a className="btn btn-primary" href={`/movie/${id}/${list_id}`}>View List</a>
+                <a className="btn btn-success" href={`/search/${id}/${list_id}`}>Add More Movies</a>
+                <a onClick={deleteList} className="btn btn-danger" href=""> Delete List </a>
             </div>
 
         </div>

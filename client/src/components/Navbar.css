@@ -8,4 +8,33 @@
 
 .navbar {
     background-color: gray;
+    display: flex;
+}
+
+.navbar-nav {
+    align-items: end;
+}
+
+#test a{
+    display: flex;
+}
+
+#test{
+    display: flex;
+    justify-items: flex-end;
+}
+
+#navbarNavAltMarkup {
+    display: flex;
+    justify-content:space-between;
+
+}
+
+#gg {
+    color:  white;
+    align-self: center;
+    justify-self: end;
+    text-align: center;
+    height: fit-content;
+    width: fit-content;
 }
