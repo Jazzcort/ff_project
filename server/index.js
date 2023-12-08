@@ -44,18 +44,15 @@ app.post("/artists", (req, res) => {
   );
 });
 
-app.post("/searchMovies", (req, res) => {
-  const { title, year, actor, director, genre } = req.body;
-  pool.execute(
-    "Call SearchMovies(?,?,?,?)",
-    [title, year, actor, director],
-    function (error, results, fields) {
-      if (error) throw error;
+app.post('/searchMovies', (req, res) => {
+  const { title, year, actor, director, genre } = req.body
+  pool.execute('Call SearchMovies(?,?,?,?,?)', [title, genre, year, actor, director], function (error, results, fields) {
+    if (error) throw error;
+    
+    res.send(results[0])
+  })
+})
 
-      res.send(results[0]);
-    }
-  );
-});
 
 app.get("/getAllMovies", (req, res) => {
   pool.query(`SELECT * FROM movie`, function (error, results, fields) {
