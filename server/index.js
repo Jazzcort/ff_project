@@ -66,6 +66,15 @@ app.post('/addMovieToList', (req, res) => {
   })
 })
 
+app.post('/deleteMovieFromList', (req, res) => {
+  const { listId, mid } = req.body
+
+  pool.execute('CALL delete_movie_from_list(?,?)', [listId, mid], function (error, results, fields) {
+    if (error) throw error;
+    res.send(true)
+  })
+})
+
 app.post('/getDefaultList', (req, res) => {
   const { id } = req.body
   pool.query(`SELECT * FROM user_list WHERE user_id = ? LIMIT 1`, [id], function (error, results, fields) {
@@ -77,6 +86,14 @@ app.post('/getDefaultList', (req, res) => {
     }
   })
 
+})
+
+app.post('/createNewList', (req, res) => {
+  const { id, newList } = req.body
+  pool.execute(`CALL create_new_list(?,?)`, [id, newList], function (error, results, fields) {
+    if (error) throw error;
+    res.send(true)
+  })
 })
 
 app.post('/getMoviesInList', (req, res) => {
@@ -91,10 +108,23 @@ app.post('/getMoviesInList', (req, res) => {
 
 app.post('/getUserAllLists', (req, res) => {
   const { id } = req.body
-  pool.query('SELECT * FROM user_list WHERE user_id = ?', [id], function(error, results, fields) {
+  pool.query('SELECT * FROM user_list WHERE user_id = ?', [id], function (error, results, fields) {
     if (error) throw error;
     console.log(results)
     res.send(results)
+
+  })
+})
+
+app.post('/getListSize', (req, res) => {
+  const { listId } = req.body
+  pool.execute('CALL get_size_from_list(?)', [listId], function(error, results, fields) {
+    if (error) throw error
+    try {
+      res.send(`${results[0][0].sizeOfList}`)
+    } catch (e) {
+      console.log(e)
+    }
     
   })
 })
