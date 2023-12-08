@@ -59,7 +59,7 @@ export default function ViewList() {
                 <button onClick={cancelEdit} className="btn btn-danger">Cancel</button>
             </form>
             <button onClick={handdleEdit} className="btn btn-success" >Add new list</button>
-            {lstArray !== null ? lstArray.map(l => <List lstName={l.list_name} list_id={l.list_id} setLstArray={setLstArray} />) : null}
+            {lstArray !== null ? lstArray.map(l => <List key={l.list_id} lstName={l.list_name} list_id={l.list_id} setLstArray={setLstArray} />) : null}
 
         </div>
     )
