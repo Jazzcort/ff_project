@@ -17,8 +17,8 @@ function App() {
     axios
       .post("http://localhost:7777/createDefaultList", { userId: id })
       .then((res) => {
-        const listId = res.data.listId;
-        navigate(`/search/${id}/${listId}`);
+        //const listId = res.data.listId;
+        navigate(`/mylist/${id}`);
       })
       .catch((err) => console.log(err));
   };
