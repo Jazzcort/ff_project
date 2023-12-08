@@ -28,6 +28,7 @@ const pool = mysql.createPool({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hahahaha!!");
 });
@@ -107,18 +108,18 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const sql =
-    "SELECT user_id FROM user WHERE username = ? AND password = ? LIMIT 1";
+  const sql = "SELECT * FROM user WHERE username = ? AND password = ? LIMIT 1";
   const { username, password } = req.body;
   pool.query(sql, [username, password], (err, data) => {
     if (err) {
-      return res.status(500).json({ error: "Error" });
+      return res.json({ error: "Error" });
     }
     if (data.length > 0) {
       const userId = data[0].user_id;
       return res.status(200).json({ message: "Success", userId: userId });
-    } else {
-      return res.status(401).json({ error: "Wrong username or password" });
+    }
+    if (data.length === 0) {
+      return res.json({ message: "Wrong username or password" });
     }
   });
 });

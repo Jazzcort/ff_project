@@ -24,7 +24,7 @@ function Login() {
             const id = res.data.userId;
             navigate(`/home/${id}`);
           } else {
-            alert("No record found");
+            alert("Wrong username or password");
           }
         })
         .catch((err) => console.log(err));
@@ -66,7 +66,6 @@ function Login() {
           <button type="submit" className="btn btn-primary w-100">
             Log in
           </button>
-          <p>You agree with our terms and policies</p>
           <Link
             to="/signup"
             className="btn btn-default border w-100 bg-light text-decoration-none"

@@ -27,6 +27,10 @@ function Signup() {
         .catch((err) => console.log(err));
     }
   };
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked);
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center bg-dark vh-100">
@@ -73,15 +77,27 @@ function Signup() {
             />
             {error.password && <p className="text-danger">{error.password}</p>}
           </div>
-          <button type="submit" className="btn btn-primary w-100">
+          <label>
+            <input
+              type="checkbox"
+              onChange={handleCheckboxChange}
+              checked={isChecked}
+            />
+            <span>You agree with our terms and policies</span>
+          </label>
+          <button
+            disabled={!isChecked}
+            type="submit"
+            className="btn btn-primary w-100"
+          >
             Sign up
           </button>
-          <p>You agree with our terms and policies</p>
+
           <Link
             to="/login"
             className="btn btn-default border w-100 bg-light text-decoration-none"
           >
-            I already have an account
+            I have an account
           </Link>
         </form>
       </div>

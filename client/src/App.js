@@ -3,6 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { FaEye } from "react-icons/fa6";
+import { MdLocalMovies } from "react-icons/md";
 
 function App() {
   function apiCall() {
@@ -25,9 +27,15 @@ function App() {
 
   return (
     <div className="App row align-items-center">
-      <h1 className="col-sm-6 offset-sm-3">Welcome to MovieList</h1>
+      <h1 className="col-sm-6 offset-sm-3">** Welcome to Movie Mania **</h1>
+      <div className="spinner">
+        <div className="spinner-icon">
+          <MdLocalMovies className="spin" />
+        </div>
+      </div>
       <button className="btn btn-light" onClick={handleSubmit}>
-        Start Searching !!
+        <FaEye className="me-2 text-dark fs-1 text" />
+        <b>View My List</b>
       </button>
     </div>
   );
