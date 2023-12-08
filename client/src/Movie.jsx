@@ -1,13 +1,17 @@
-import { useParams } from "react-router-dom"
+import { useParams, redirect } from "react-router-dom"
 import "./Movie.css"
 import axios from "axios"
 export default function Movie({ mid, title, release_year, rating }) {
-    const { listId } = useParams()
+    const { id, listId } = useParams()
+   
 
     function addToList(evt) {
         evt.preventDefault()
         axios.post('http://localhost:7777/addMovieToList', { mid, listId }).then((res) => {
             console.log(res.data)
+            // return redirect(`/search/${id}/${listId}`)
+            window.location.reload()
+
         }).catch(e => {
             console.log(e)
         })

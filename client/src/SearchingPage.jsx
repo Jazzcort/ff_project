@@ -8,28 +8,56 @@ import axios from "axios"
 export default function SearchingPage() {
     const { id, listId } = useParams()
     const [movies, setMovies] = useState([])
-    const [mList, setMlist] = useState([])
+    const [mList, setMlist] = useState(null)
+    const [allLists, setAllLists] = useState(null)
+
 
     if (movies && movies.length === 0) {
         axios.get('http://localhost:7777/getAllMovies').then((res) => {
             setMovies(res.data)
-        }).catch(e => {
-            console.log(e)
+
+        }).then(() => {
+            getAllLists()
+        }).then(() => {
+            loadList()
         })
+            .catch(e => {
+                console.log(e)
+            })
     }
 
-    if (mList && mList.length === 0) {
-        loadList()
-    }
 
     function loadList() {
+        let flag = true
 
-        axios.post('http://localhost:7777/getDefaultList', { id }).then(res => {
-            setMlist(res.data)
+        if (flag) {
+            flag = false
+            axios.post('http://localhost:7777/getMoviesInList', { listId }).then(res => {
+                setMlist(res.data)
+                flag = true
+            }).catch(e => {
+                console.log(e)
+                flag = true
+            })
+        }
+
+
+
+    }
+
+    function getAllLists() {
+        axios.post('http://localhost:7777/getUserAllLists', { id }).then(res => {
+            setAllLists(res.data)
+
         }).catch(e => {
             console.log(e)
         })
+    }
 
+    function handleOnClick(evt) {
+        // evt.preventDefault()
+        console.log(evt)
+        console.log('clicked')
     }
 
     const location = useLocation()
@@ -41,7 +69,18 @@ export default function SearchingPage() {
             <SearchingBlock />
             <div className='row'>
                 <div className='col-3'>
-                    <ListDisplay lstName="Your list" lst={mList} />
+
+                    <div className="dropdown">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {allLists ? (allLists.find((elem) => elem.list_id === parseInt(listId))).list_name : "No List"}
+                        </button>
+                        <ul className="dropdown-menu">
+                            {allLists && allLists.map(elem => <li><a onClick={handleOnClick} className="dropdown-item" href={`/search/${id}/${elem.list_id}`}>{elem.list_name}</a></li>)}
+                            
+                        </ul>
+                    </div>
+
+                    <ListDisplay lstName="Your list" lst={mList ? mList : []} />
                 </div>
 
                 <div className='col-9'>

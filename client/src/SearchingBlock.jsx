@@ -30,7 +30,7 @@ export default function SearchingBlock() {
     }
 
     function handleFromSubmit(evt) {
-            
+        evt.preventDefault()
         const objToSent = {
             title: title === "" ? null : title, year: year === "" ? null : year, actor: actor === "" ? null : actor, director: director === "" ? null : director
             , genre: genre === "" ? null : genre
