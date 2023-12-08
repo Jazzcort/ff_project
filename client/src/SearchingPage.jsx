@@ -11,16 +11,19 @@ export default function SearchingPage() {
     const [mList, setMlist] = useState(null)
     const [allLists, setAllLists] = useState(null)
     const [newList, setNewList] = useState("")
+    const [currentLst, setCurrentLst] = useState(null)
 
 
     if (movies && movies.length === 0) {
         axios.get('http://localhost:7777/getAllMovies').then((res) => {
             setMovies(res.data)
 
-        }).then(() => {
-            getAllLists()
-        }).then(() => {
-            loadList()
+        }).then(getAllLists()).then(loadList()).then(() => {
+            axios.post('http://localhost:7777/getListName', { listId }).then(res => {
+                setCurrentLst(res.data.list_name)
+            }).catch(e => {
+                console.log(e)
+            })
         })
             .catch(e => {
                 console.log(e)
@@ -29,18 +32,15 @@ export default function SearchingPage() {
 
 
     function loadList() {
-        let flag = true
 
-        if (flag) {
-            flag = false
-            axios.post('http://localhost:7777/getMoviesInList', { listId }).then(res => {
-                setMlist(res.data)
-                flag = true
-            }).catch(e => {
-                console.log(e)
-                flag = true
-            })
-        }
+        axios.post('http://localhost:7777/getMoviesInList', { listId }).then(res => {
+            setMlist(res.data)
+
+        }).catch(e => {
+            console.log(e)
+
+        })
+
 
 
 
@@ -60,7 +60,9 @@ export default function SearchingPage() {
         evt.preventDefault()
         if (newList !== "") {
             axios.post('http://localhost:7777/createNewList', { id, newList }).then(res => {
-                window.location.reload()
+                if (res.data) {
+                    getAllLists()
+                }
             })
         }
     }
@@ -72,7 +74,7 @@ export default function SearchingPage() {
     const location = useLocation()
     const result = location.state
 
-    
+
 
 
     return (
@@ -98,11 +100,11 @@ export default function SearchingPage() {
                         </div>
                     </div>
 
-                    <ListDisplay lstName="Your list" lst={mList ? mList : []} />
+                    <ListDisplay lstName={currentLst} lst={mList ? mList : []} />
                 </div>
 
                 <div className='col-9'>
-                    <SearchResult movies={result ? result : movies} />
+                    <SearchResult setMlist={setMlist} movies={result ? result : movies} />
                 </div>
             </div>
 
